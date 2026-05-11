@@ -1,0 +1,287 @@
+<!-- Подключение базового шаблона с общей структурой интерфейса:
+   в нем обычно находятся head, стили, навигация и общий контейнер страницы -->
+{% extends "base.html" %}
+
+<!-- Заполнение блока заголовка страницы, отображаемого в title базового шаблона -->
+{% block title %}Журнал безопасности{% endblock %}
+
+<!-- Начало основного содержимого страницы журнала событий -->
+{% block content %}
+<!-- Основная секция страницы журнала безопасности -->
+<section>
+    <!-- Главный заголовок страницы -->
+    <h1 class="section-title">Журнал событий безопасности</h1>
+
+    <!-- Подзаголовок с пояснением назначения страницы -->
+    <p class="section-subtitle">
+        История действий пользователей, попыток входа и системных событий с фильтрацией по устройствам и статусам.
+    </p>
+
+    <!-- Карточка с элементами фильтрации журнала -->
+    <div class="card table-card" style="margin-bottom: 24px;">
+        <!-- Заголовок блока фильтров -->
+        <h2>Фильтры журнала</h2>
+
+        <!-- Сетка для компактного размещения фильтров по нескольким колонкам -->
+        <div class="filters-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 16px;">
+            <!-- Фильтр по идентификатору устройства -->
+            <div>
+                <!-- Метка текстового поля фильтра по устройству -->
+                <label for="deviceFilter">Устройство</label>
+
+                <!-- Поле ввода для поиска по устройству;
+                     при каждом изменении текста запускается функция фильтрации -->
+                <input type="text" id="deviceFilter" placeholder="Например, юс" oninput="filterLogs()">
+            </div>
+
+            <!-- Фильтр по имени пользователя -->
+            <div>
+                <!-- Метка текстового поля фильтра по пользователю -->
+                <label for="userFilter">Пользователь</label>
+
+                <!-- Поле ввода для поиска по пользователю -->
+                <input type="text" id="userFilter" placeholder="Например, иванов" oninput="filterLogs()">
+            </div>
+
+            <!-- Фильтр по статусу события -->
+            <div>
+                <!-- Метка списка выбора статуса -->
+                <label for="statusFilter">Статус</label>
+
+                <!-- Выпадающий список статусов;
+                     при смене значения выполняется повторная фильтрация -->
+                <select id="statusFilter" onchange="filterLogs()">
+                    <!-- Пустое значение означает отсутствие фильтра по статусу -->
+                    <option value="">Все</option>
+
+                    <!-- Отбор только успешных событий -->
+                    <option value="success">success</option>
+
+                    <!-- Отбор событий с ошибкой -->
+                    <option value="error">error</option>
+
+                    <!-- Отбор событий блокировки -->
+                    <option value="blocked">blocked</option>
+                </select>
+            </div>
+
+            <!-- Фильтр по тексту сообщения журнала -->
+            <div>
+                <!-- Метка поля поиска по сообщению -->
+                <label for="textFilter">Поиск по сообщению</label>
+
+                <!-- Поле ввода для поиска фрагмента текста в сообщении -->
+                <input type="text" id="textFilter" placeholder="Текст сообщения" oninput="filterLogs()">
+            </div>
+        </div>
+
+        <!-- Кнопка сброса всех фильтров к исходному состоянию -->
+        <button type="button" class="primary-button" style="margin-top:16px; max-width:220px;" onclick="resetFilters()">
+            Сбросить фильтры
+        </button>
+    </div>
+
+    <!-- Основная сетка с двумя таблицами журнала -->
+    <div class="content-grid">
+        <!-- Карточка с таблицей устройств, на которых были неудачные попытки входа -->
+        <div class="card table-card">
+            <!-- Заголовок первой таблицы -->
+            <h2>Устройства с неудачными попытками</h2>
+
+            {# Если список failed_devices не пуст, выводится таблица #}
+            {% if failed_devices %}
+                <table>
+                    <!-- Первая строка таблицы с названиями столбцов -->
+                    <tr>
+                        <th>Время</th>
+                        <th>Пользователь</th>
+                        <th>Устройство</th>
+                        <th>Статус</th>
+                        <th>Сообщение</th>
+                    </tr>
+
+                    {# Цикл по всем событиям неудачных попыток входа #}
+                    {% for item in failed_devices %}
+                    <tr>
+                        <!-- Время события -->
+                        <td>{{ item.time }}</td>
+
+                        <!-- Имя пользователя -->
+                        <td>{{ item.username }}</td>
+
+                        <!-- Идентификатор устройства -->
+                        <td>{{ item.source_id }}</td>
+
+                        <!-- Статус события -->
+                        <td>{{ item.status }}</td>
+
+                        <!-- Текстовое сообщение журнала -->
+                        <td>{{ item.message }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <!-- Если неудачных попыток нет, выводится пустое состояние -->
+                <div class="empty-state">
+                    Неудачных попыток входа пока нет.
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Карточка с полной таблицей всех событий системы -->
+        <div class="card table-card">
+            <!-- Заголовок второй таблицы -->
+            <h2>Все события системы</h2>
+
+            {# Если список logs не пуст, выводится таблица полного журнала #}
+            {% if logs %}
+                <!-- Таблица, по строкам которой выполняется клиентская фильтрация -->
+                <table id="logsTable">
+                    <!-- Заголовок таблицы -->
+                    <thead>
+                        <tr>
+                            <th>Время</th>
+                            <th>Тип</th>
+                            <th>Пользователь</th>
+                            <th>Устройство</th>
+                            <th>Статус</th>
+                            <th>Сообщение</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Тело таблицы с данными журнала -->
+                    <tbody>
+                        {# Цикл по всем событиям журнала #}
+                        {% for item in logs %}
+                        <tr>
+                            <!-- Время события -->
+                            <td>{{ item.time }}</td>
+
+                            <!-- Тип события -->
+                            <td>{{ item.event_type }}</td>
+
+                            <!-- Пользователь, связанный с событием -->
+                            <td>{{ item.username }}</td>
+
+                            <!-- Устройство, с которого произошло событие -->
+                            <td>{{ item.source_id }}</td>
+
+                            <!-- Статус события -->
+                            <td>{{ item.status }}</td>
+
+                            <!-- Текст сообщения -->
+                            <td>{{ item.message }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Сообщение, отображаемое, если после фильтрации не найдено ни одной записи -->
+                <p id="noResultsMessage" style="display:none; margin-top:16px; color:#b91c1c;">
+                    По выбранным фильтрам записи не найдены.
+                </p>
+            {% else %}
+                <!-- Пустое состояние, если журнал еще не содержит записей -->
+                <div class="empty-state">
+                    Логи пока отсутствуют. После входов и событий безопасности здесь появятся записи.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Клиентский скрипт для локальной фильтрации строк таблицы журнала -->
+<script>
+function filterLogs() {
+    // Получение значения фильтра по устройству и перевод к нижнему регистру
+    const deviceFilter = document.getElementById("deviceFilter").value.toLowerCase();
+
+    // Получение значения фильтра по пользователю и перевод к нижнему регистру
+    const userFilter = document.getElementById("userFilter").value.toLowerCase();
+
+    // Получение выбранного статуса и перевод к нижнему регистру
+    const statusFilter = document.getElementById("statusFilter").value.toLowerCase();
+
+    // Получение значения текстового фильтра по сообщению
+    const textFilter = document.getElementById("textFilter").value.toLowerCase();
+
+    // Получение ссылки на таблицу полного журнала
+    const table = document.getElementById("logsTable");
+
+    // Получение ссылки на сообщение об отсутствии результатов фильтрации
+    const noResults = document.getElementById("noResultsMessage");
+
+    // Если таблица отсутствует на странице, дальнейшая фильтрация не выполняется
+    if (!table) return;
+
+    // Получение всех строк тела таблицы
+    const rows = table.querySelectorAll("tbody tr");
+
+    // Счетчик строк, оставшихся видимыми после фильтрации
+    let visibleCount = 0;
+
+    // Последовательный обход всех строк таблицы
+    rows.forEach(row => {
+        // Получение всех ячеек текущей строки
+        const cells = row.querySelectorAll("td");
+
+        // Извлечение значения пользователя из третьего столбца
+        const user = cells[2].textContent.toLowerCase();
+
+        // Извлечение значения устройства из четвертого столбца
+        const device = cells[3].textContent.toLowerCase();
+
+        // Извлечение значения статуса из пятого столбца
+        const status = cells[4].textContent.toLowerCase();
+
+        // Извлечение текста сообщения из шестого столбца
+        const message = cells[5].textContent.toLowerCase();
+
+        // Проверка совпадения по устройству:
+        // если фильтр пуст, условие считается выполненным
+        const matchDevice = !deviceFilter || device.includes(deviceFilter);
+
+        // Проверка совпадения по пользователю
+        const matchUser = !userFilter || user.includes(userFilter);
+
+        // Проверка совпадения по статусу:
+        // здесь используется точное совпадение выбранного значения
+        const matchStatus = !statusFilter || status === statusFilter;
+
+        // Проверка совпадения по тексту сообщения
+        const matchText = !textFilter || message.includes(textFilter);
+
+        // Если строка удовлетворяет всем условиям, она остается видимой
+        if (matchDevice && matchUser && matchStatus && matchText) {
+            row.style.display = "";
+            visibleCount++;
+        } else {
+            // Иначе строка скрывается
+            row.style.display = "none";
+        }
+    });
+
+    // Если после фильтрации не осталось видимых строк, показывается сообщение
+    noResults.style.display = visibleCount === 0 ? "block" : "none";
+}
+
+function resetFilters() {
+    // Очистка поля фильтра по устройству
+    document.getElementById("deviceFilter").value = "";
+
+    // Очистка поля фильтра по пользователю
+    document.getElementById("userFilter").value = "";
+
+    // Сброс выбранного статуса
+    document.getElementById("statusFilter").value = "";
+
+    // Очистка текстового фильтра по сообщению
+    document.getElementById("textFilter").value = "";
+
+    // Повторный запуск фильтрации после сброса значений
+    filterLogs();
+}
+</script>
+
+{# Завершение блока content, вставляемого в базовый шаблон #}
+{% endblock %}

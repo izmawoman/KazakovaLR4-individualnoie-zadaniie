@@ -1,0 +1,346 @@
+[
+  {
+    "time": "28.04.2026 23:03:00",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "loc",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "28.04.2026 23:03:05",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "loc",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "28.04.2026 23:03:18",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "loc",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "28.04.2026 23:06:18",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "мяу",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "28.04.2026 23:10:40",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "мяу",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "28.04.2026 23:10:47",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "мяу",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "28.04.2026 23:10:54",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "мяу",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "28.04.2026 23:15:54",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "мяу",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "28.04.2026 23:24:01",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "28.04.2026 23:24:07",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "28.04.2026 23:24:11",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "28.04.2026 23:29:47",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "28.04.2026 23:31:59",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "28.04.2026 23:32:03",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "28.04.2026 23:32:11",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "29.04.2026 06:27:02",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "29.04.2026 06:27:07",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "29.04.2026 06:27:11",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "29.04.2026 06:28:02",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "нор",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "04.05.2026 15:28:29",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "нор",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "04.05.2026 15:46:54",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "04.05.2026 15:51:53",
+    "event_type": "pin",
+    "username": "петров",
+    "source_id": "хуавей",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "04.05.2026 15:52:02",
+    "event_type": "pin",
+    "username": "петров",
+    "source_id": "хуавей",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "04.05.2026 15:52:11",
+    "event_type": "pin",
+    "username": "петров",
+    "source_id": "хуавей",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "04.05.2026 15:52:48",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "04.05.2026 16:00:38",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "1234",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "10.05.2026 12:33:48",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "IOS",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "10.05.2026 12:35:30",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "10.05.2026 12:35:36",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "10.05.2026 12:35:41",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "10.05.2026 16:08:12",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "мяу",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "11.05.2026 12:47:47",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "11.05.2026 12:47:52",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "11.05.2026 12:47:56",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "11.05.2026 12:49:23",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "11.05.2026 12:49:27",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "11.05.2026 12:49:30",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "лор",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "11.05.2026 12:50:22",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "11.05.2026 14:00:32",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "хуавей",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "11.05.2026 14:02:16",
+    "event_type": "pin",
+    "username": "петров",
+    "source_id": "андроид",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 1 из 3"
+  },
+  {
+    "time": "11.05.2026 14:02:20",
+    "event_type": "pin",
+    "username": "петров",
+    "source_id": "андроид",
+    "status": "error",
+    "message": "Неверный PIN. Попытка 2 из 3"
+  },
+  {
+    "time": "11.05.2026 14:02:24",
+    "event_type": "pin",
+    "username": "петров",
+    "source_id": "андроид",
+    "status": "blocked",
+    "message": "Устройство заблокировано после 3 неудачных попыток. Осталось 04:59"
+  },
+  {
+    "time": "11.05.2026 14:02:51",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "success",
+    "message": "Успешный вход"
+  }
+]

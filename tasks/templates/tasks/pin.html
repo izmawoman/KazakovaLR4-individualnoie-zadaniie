@@ -1,0 +1,132 @@
+
+{% extends "base.html" %}
+
+{% block title %}Подтверждение PIN{% endblock %}
+{% block content %}
+<!-- Основная секция второго этапа аутентификации -->
+<section class="hero-grid">
+    <!-- Левая информационная панель с пояснением текущего этапа входа -->
+    <div class="card hero-panel">
+        <!-- Краткая маркировка этапа процесса аутентификации -->
+        <div class="eyebrow">Этап 2 · Подтверждение доступа</div>
+
+        <!-- Основной заголовок страницы -->
+        <h1 class="page-title">Проверка PIN-кода</h1>
+
+        <!-- Поясняющий текст о том, что идентификационные данные уже подтверждены,
+             и теперь требуется ввод PIN-кода -->
+        <p class="page-text">
+            Система получила корректные идентификационные данные. Теперь введите PIN-код,
+            чтобы завершить вход и перейти к панели анализа угроз.
+        </p>
+
+        <!-- Блок с краткой информацией о текущем пользователе и устройстве -->
+        <div class="inline-meta">
+            <!-- Метка с именем или идентификатором пользователя -->
+            <div class="inline-badge">Пользователь: {{ username }}</div>
+
+            <!-- Метка с идентификатором устройства -->
+            <div class="inline-badge">Устройство: {{ source_id }}</div>
+        </div>
+        {% if blocked and remaining_time %}
+            <!-- Сообщение о временной блокировке ввода PIN-кода -->
+            <div class="alert alert-error" style="margin-top: 18px;">
+                Повторный ввод для этого устройства будет доступен через
+                <!-- Элемент, в который JavaScript будет подставлять обновляемое время -->
+                <span id="countdown-top">{{ remaining_time }}</span>.
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Правая панель с формой подтверждения PIN-кода -->
+    <div class="card form-card">
+        <!-- Заголовок формы -->
+        <h2>Подтверждение входа</h2>
+
+        <!-- Краткая инструкция для пользователя -->
+        <p>Введите PIN-код для завершения входа.</p>
+        {% if not blocked and message %}
+            <!-- Контейнер для вывода предупреждающего сообщения -->
+            <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+        {% if not blocked %}
+            <!-- HTML-форма, отправляемая методом POST -->
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Группа поля PIN-кода -->
+                <div class="form-group">
+                    <!-- HTML-метка поля pin -->
+                    {{ form.pin.label_tag }}
+
+                    <!-- Сам элемент ввода PIN-кода -->
+                    {{ form.pin }}
+
+                    {% if form.pin.errors %}
+                        <!-- Блок отображения ошибок поля -->
+                        <div class="field-error">{{ form.pin.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Кнопка отправки формы подтверждения PIN-кода -->
+                <button type="submit" class="primary-button">Войти в систему</button>
+            </form>
+        {% endif %}
+
+        <!-- Ссылка для возврата к предыдущему шагу идентификации -->
+        <a href="{% url 'identify' %}" class="secondary-link">Вернуться к вводу данных</a>
+    </div>
+</section>
+
+{% if blocked %}
+<script>
+    // Начальное количество секунд до окончания блокировки;
+    // если значение отсутствует, используется 0 по умолчанию
+    let remainingSeconds = {{ remaining_seconds|default:0 }};
+
+    // Функция преобразует число секунд в формат MM:SS
+    function formatTime(totalSeconds) {
+        // Вычисление полного количества минут
+        const minutes = Math.floor(totalSeconds / 60);
+
+        // Вычисление остатка секунд
+        const seconds = totalSeconds % 60;
+
+        // Возврат строки формата 00:00 с ведущими нулями
+        return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    }
+
+    // Функция обновления таймера обратного отсчета
+    function updateCountdown() {
+        // Получение элемента, в который выводится оставшееся время
+        const topEl = document.getElementById("countdown-top");
+
+        // Если время блокировки истекло, выполняется завершение отсчета и переход на другой URL
+        if (remainingSeconds <= 0) {
+            // При наличии элемента на странице показывается нулевое значение таймера
+            if (topEl) topEl.textContent = "00:00";
+
+            // Перенаправление пользователя на маршрут сброса состояния входа
+            window.location.href = "{% url 'reset_entry' %}";
+            return;
+        }
+
+        // Форматирование оставшегося времени в вид MM:SS
+        const formatted = formatTime(remainingSeconds);
+
+        // Обновление текста таймера на странице
+        if (topEl) topEl.textContent = formatted;
+
+        // Уменьшение счетчика секунд на одну единицу
+        remainingSeconds--;
+    }
+
+    // Немедленный запуск функции, чтобы таймер появился без задержки в одну секунду
+    updateCountdown();
+
+    // Повторный запуск функции каждую секунду
+    setInterval(updateCountdown, 1000);
+</script>
+{% endif %}
+
+{% endblock %}

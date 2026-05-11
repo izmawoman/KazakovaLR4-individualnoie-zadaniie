@@ -1,0 +1,38 @@
+{
+  "loc": {
+    "failed_attempts": 3,
+    "blocked_until": "2026-04-28T23:08:18.695152"
+  },
+  "мяу": {
+    "failed_attempts": 0,
+    "blocked_until": null
+  },
+  "лор": {
+    "failed_attempts": 3,
+    "blocked_until": "2026-05-11T12:54:30.843853"
+  },
+  "айфон": {
+    "failed_attempts": 0,
+    "blocked_until": null
+  },
+  "нор": {
+    "failed_attempts": 0,
+    "blocked_until": null
+  },
+  "хуавей": {
+    "failed_attempts": 0,
+    "blocked_until": null
+  },
+  "1234": {
+    "failed_attempts": 0,
+    "blocked_until": null
+  },
+  "IOS": {
+    "failed_attempts": 0,
+    "blocked_until": null
+  },
+  "андроид": {
+    "failed_attempts": 3,
+    "blocked_until": "2026-05-11T14:07:24.369444"
+  }
+}
