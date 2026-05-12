@@ -3,6 +3,10 @@
 
 {% block title %}Панель рисков{% endblock %}
 
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
 {% block content %}
 <!-- Секция панели мониторинга рисков и событий безопасности -->
 <section>
@@ -99,9 +103,6 @@
         </div>
     </div>
 </section>
-
-<!-- Подключение библиотеки Chart.js из CDN для построения диаграмм -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Клиентский скрипт для инициализации диаграмм на основе данных, полученных с сервера -->
 <script>

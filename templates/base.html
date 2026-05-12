@@ -20,6 +20,7 @@
 
     <!-- Подключение основного CSS-файла проекта из каталога static -->
     <link rel="stylesheet" href="{% static 'tasks/styles.css' %}">
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
     <!-- Внешний контейнер всей страницы, управляющий общей компоновкой интерфейса -->

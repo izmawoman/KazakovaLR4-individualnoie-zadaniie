@@ -342,5 +342,21 @@
     "source_id": "айфон",
     "status": "success",
     "message": "Успешный вход"
+  },
+  {
+    "time": "12.05.2026 10:51:15",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "success",
+    "message": "Успешный вход"
+  },
+  {
+    "time": "12.05.2026 10:51:52",
+    "event_type": "pin",
+    "username": "иванов",
+    "source_id": "айфон",
+    "status": "success",
+    "message": "Успешный вход"
   }
 ]
