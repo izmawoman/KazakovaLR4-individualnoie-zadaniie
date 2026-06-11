@@ -1,64 +1,81 @@
+/* ============================================================
+   CSS-ПЕРЕМЕННЫЕ (Design Tokens)
+   Централизованное хранение цветов, теней и радиусов.
+   Меняя значение здесь — меняешь вид во всём проекте.
+   ============================================================ */
 :root {
-  --bg: #f4f6f8;
-  --surface: #ffffff;
-  --surface-soft: #f8fafc;
-  --border: #d9e0e7;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --primary: #0f4c5c;
-  --primary-hover: #0b3945;
-  --accent: #1d7a85;
-  --danger: #b42318;
-  --danger-soft: #fef3f2;
-  --success: #027a48;
-  --success-soft: #ecfdf3;
-  --warning: #b54708;
-  --warning-soft: #fffaeb;
-  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  --radius-lg: 20px;
-  --radius-md: 14px;
-  --radius-sm: 10px;
+  --bg: #f4f6f8;                   /* цвет фона страницы */
+  --surface: #ffffff;              /* цвет поверхности карточек */
+  --surface-soft: #f8fafc;         /* мягкий фон для вложенных элементов */
+  --border: #d9e0e7;               /* цвет рамок */
+  --text: #1f2937;                 /* основной цвет текста */
+  --muted: #6b7280;                /* приглушённый текст (подписи, описания) */
+  --primary: #0f4c5c;              /* основной фирменный цвет */
+  --primary-hover: #0b3945;        /* primary при наведении */
+  --accent: #1d7a85;               /* акцентный цвет (фокус, иконки) */
+  --danger: #b42318;               /* красный для ошибок */
+  --danger-soft: #fef3f2;          /* мягкий красный фон для алертов */
+  --success: #027a48;              /* зелёный для успеха */
+  --success-soft: #ecfdf3;         /* мягкий зелёный фон для алертов */
+  --warning: #b54708;              /* оранжевый для предупреждений */
+  --warning-soft: #fffaeb;         /* мягкий оранжевый фон для алертов */
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);  /* универсальная тень карточек */
+  --radius-lg: 20px;               /* скругление для крупных блоков */
+  --radius-md: 14px;               /* скругление для карточек среднего размера */
+  --radius-sm: 10px;               /* скругление для мелких элементов */
 }
 
+/* ============================================================
+   СБРОС И БАЗОВЫЕ СТИЛИ
+   ============================================================ */
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; /* padding и border входят в ширину/высоту элемента */
 }
 
 body {
   margin: 0;
   font-family: Inter, Arial, sans-serif;
-  background: linear-gradient(180deg, #eef3f6 0%, #f7f9fb 100%);
+  background: linear-gradient(180deg, #eef3f6 0%, #f7f9fb 100%); /* вертикальный градиент фона */
   color: var(--text);
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none; /* убираем подчёркивание у всех ссылок */
 }
 
+/* ============================================================
+   ОСНОВНАЯ ОБОЛОЧКА СТРАНИЦЫ
+   ============================================================ */
 .page-shell {
-  min-height: 100vh;
+  min-height: 100vh; /* страница занимает не меньше полной высоты экрана */
 }
 
+/* ============================================================
+   ВЕРХНЯЯ ПАНЕЛЬ (TOPBAR)
+   Липкая шапка с логотипом и навигацией
+   ============================================================ */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 24px;
   padding: 24px 40px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.92); /* полупрозрачный белый */
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(12px);
-  position: sticky;
+  backdrop-filter: blur(12px); /* размытие фона под шапкой (эффект стекла) */
+  position: sticky;            /* шапка остаётся видимой при прокрутке */
   top: 0;
-  z-index: 20;
+  z-index: 20;                 /* поверх остального контента */
 }
 
+/* Блок логотипа: иконка + название + подзаголовок */
 .brand-block {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
+/* Квадратная иконка-логотип с градиентом */
 .brand-mark {
   width: 48px;
   height: 48px;
@@ -83,10 +100,11 @@ a {
   margin-top: 2px;
 }
 
+/* Горизонтальное меню навигации */
 .topnav {
   display: flex;
   gap: 18px;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* переносится на новую строку на узких экранах */
 }
 
 .topnav a {
@@ -102,23 +120,33 @@ a {
   color: var(--primary);
 }
 
+/* Ссылка «Выйти» — выделена красным */
 .topnav .nav-danger {
   color: var(--danger);
 }
 
+/* ============================================================
+   ОСНОВНОЙ КОНТЕЙНЕР СТРАНИЦЫ
+   ============================================================ */
 .main-container {
-  max-width: 1180px;
-  margin: 0 auto;
+  max-width: 1180px;     /* ограничиваем ширину контента */
+  margin: 0 auto;        /* центрируем по горизонтали */
   padding: 40px 24px 56px;
 }
 
+/* ============================================================
+   HERO-СЕКЦИЯ: двухколоночная сетка (текст + форма)
+   ============================================================ */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.1fr 0.9fr; /* левая колонка чуть шире */
   gap: 28px;
   align-items: stretch;
 }
 
+/* ============================================================
+   КАРТОЧКА (базовый блок)
+   ============================================================ */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -130,13 +158,14 @@ a {
   padding: 36px;
 }
 
+/* Плашка-бейдж над заголовком ("Система верификации" и т.п.) */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   background: #edf7f8;
   color: var(--primary);
-  border-radius: 999px;
+  border-radius: 999px;       /* таблетка */
   padding: 8px 14px;
   font-size: 13px;
   font-weight: 700;
@@ -155,9 +184,10 @@ a {
   color: var(--muted);
   font-size: 17px;
   line-height: 1.6;
-  max-width: 60ch;
+  max-width: 60ch; /* ограничиваем строку ~60 символами для читаемости */
 }
 
+/* Список возможностей/функций безопасности */
 .security-list {
   margin: 28px 0 0;
   padding: 0;
@@ -175,6 +205,9 @@ a {
   color: #334155;
 }
 
+/* ============================================================
+   КАРТОЧКА С ФОРМОЙ
+   ============================================================ */
 .form-card {
   padding: 32px;
 }
@@ -189,6 +222,7 @@ a {
   color: var(--muted);
 }
 
+/* Группа поля: лейбл + инпут */
 .form-group {
   margin-bottom: 18px;
 }
@@ -211,12 +245,14 @@ a {
   transition: 0.2s ease;
 }
 
+/* Состояние фокуса: цветная рамка + мягкое свечение */
 .form-group input:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(29, 122, 133, 0.12);
 }
 
+/* Основная кнопка отправки формы */
 .primary-button {
   width: 100%;
   border: none;
@@ -230,11 +266,13 @@ a {
   transition: 0.2s ease;
 }
 
+/* При наведении кнопка чуть «приподнимается» */
 .primary-button:hover {
   transform: translateY(-1px);
   box-shadow: 0 12px 24px rgba(15, 76, 92, 0.18);
 }
 
+/* Ссылка-дополнение под формой */
 .secondary-link {
   display: inline-block;
   margin-top: 18px;
@@ -242,6 +280,9 @@ a {
   font-weight: 600;
 }
 
+/* ============================================================
+   АЛЕРТЫ (уведомления об ошибках, успехе, предупреждениях)
+   ============================================================ */
 .alert {
   padding: 14px 16px;
   border-radius: 12px;
@@ -268,16 +309,21 @@ a {
   border: 1px solid #fedf89;
 }
 
+/* Ошибка валидации под конкретным полем формы */
 .field-error {
   margin-top: 8px;
   color: var(--danger);
   font-size: 14px;
 }
 
+/* ============================================================
+   МЕТА-КАРТОЧКА И СЕТКА МЕТРИК (дашборд)
+   ============================================================ */
 .meta-card {
   padding: 24px;
 }
 
+/* Три карточки с числовыми показателями в ряд */
 .meta-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -285,6 +331,7 @@ a {
   margin-top: 24px;
 }
 
+/* Отдельная карточка с одной метрикой */
 .metric-card {
   padding: 22px;
   background: var(--surface);
@@ -299,12 +346,16 @@ a {
   margin-bottom: 10px;
 }
 
+/* Крупное числовое значение метрики */
 .metric-value {
   font-size: 32px;
   font-weight: 800;
   margin: 0;
 }
 
+/* ============================================================
+   ЗАГОЛОВКИ СЕКЦИЙ
+   ============================================================ */
 .section-title {
   font-size: 30px;
   margin: 0 0 20px;
@@ -321,13 +372,16 @@ a {
   margin-top: 28px;
 }
 
+/* ============================================================
+   КАРТОЧКА С ТАБЛИЦЕЙ
+   ============================================================ */
 .table-card {
   padding: 24px;
 }
 
 .table-card table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse; /* убираем двойные границы между ячейками */
   overflow: hidden;
 }
 
@@ -338,12 +392,16 @@ a {
   text-align: left;
 }
 
+/* Заголовки столбцов — мягкий серый фон */
 .table-card th {
   background: #f8fafc;
   font-size: 14px;
   color: #475467;
 }
 
+/* ============================================================
+   СТРОКА БЕЙДЖЕЙ (inline-meta)
+   ============================================================ */
 .inline-meta {
   display: flex;
   gap: 12px;
@@ -351,6 +409,7 @@ a {
   margin-bottom: 18px;
 }
 
+/* Отдельный бейдж-таблетка */
 .inline-badge {
   padding: 10px 14px;
   border-radius: 999px;
@@ -360,11 +419,15 @@ a {
   font-weight: 700;
 }
 
+/* ============================================================
+   СПИСОК ЗАПИСЕЙ ЖУРНАЛА
+   ============================================================ */
 .logs-list {
   display: grid;
   gap: 14px;
 }
 
+/* Отдельная запись журнала */
 .log-item {
   padding: 18px;
   border-radius: 16px;
@@ -373,20 +436,26 @@ a {
   box-shadow: var(--shadow);
 }
 
+/* Заглушка при пустом списке */
 .empty-state {
   padding: 28px;
   border-radius: 18px;
   background: var(--surface);
-  border: 1px dashed #cbd5e1;
+  border: 1px dashed #cbd5e1; /* пунктирная рамка подчёркивает «пустоту» */
   color: var(--muted);
 }
 
+/* ============================================================
+   АДАПТИВНОСТЬ (мобильные устройства до 900px)
+   ============================================================ */
 @media (max-width: 900px) {
+  /* Переводим двухколоночные сетки в одноколоночные */
   .hero-grid,
   .meta-grid {
       grid-template-columns: 1fr;
   }
 
+  /* Шапка переходит в вертикальный режим */
   .topbar {
       flex-direction: column;
       align-items: flex-start;
@@ -397,10 +466,12 @@ a {
       padding: 24px 16px 40px;
   }
 
+  /* Уменьшаем заголовок на мобильных */
   .page-title {
       font-size: 32px;
   }
 
+  /* Уменьшаем внутренние отступы карточек */
   .form-card,
   .hero-panel,
   .table-card,
@@ -409,17 +480,22 @@ a {
   }
 }
 
+/* ============================================================
+   КАРТОЧКА С ГРАФИКОМ (Chart.js canvas)
+   ============================================================ */
 .chart-card {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
+/* Canvas растягивается на всю ширину, но не превышает 320px высоты */
 .chart-card canvas {
   width: 100% !important;
   max-height: 320px;
 }
 
+/* Подзаголовок карточки — серый текст под заголовком секции */
 .card-subtitle {
   margin: 0;
   color: #667085;
