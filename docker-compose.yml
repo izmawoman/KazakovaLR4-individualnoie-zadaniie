@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: verification_db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: verification_pgadmin
+    restart: always
+    env_file:
+      - .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  web:
+    build: .
+    container_name: verification_web
+    restart: always
+    env_file:
+      - .env
+    command: gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+    expose:
+      - "8000"
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: verification_nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - static_volume:/app/staticfiles
+    depends_on:
+      - web
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+  static_volume:
+
+networks:
+  app_network:

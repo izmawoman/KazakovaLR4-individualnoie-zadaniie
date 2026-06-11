@@ -1,15 +1,15 @@
 {
   "loc": {
     "failed_attempts": 3,
-    "blocked_until": "2026-04-28T23:08:18.695152"
+    "blocked_until": "2026-05-21T19:07:06.069818"
   },
   "мяу": {
     "failed_attempts": 0,
     "blocked_until": null
   },
   "лор": {
-    "failed_attempts": 3,
-    "blocked_until": "2026-05-11T12:54:30.843853"
+    "failed_attempts": 0,
+    "blocked_until": null
   },
   "айфон": {
     "failed_attempts": 0,
@@ -34,5 +34,25 @@
   "андроид": {
     "failed_attempts": 3,
     "blocked_until": "2026-05-11T14:07:24.369444"
+  },
+  "айос": {
+    "failed_attempts": 3,
+    "blocked_until": "2026-05-12T10:58:24.276382"
+  },
+  "6789": {
+    "failed_attempts": 3,
+    "blocked_until": "2026-05-15T22:37:47.932086"
+  },
+  "device_1": {
+    "failed_attempts": 0,
+    "blocked_until": null
+  },
+  "device_2": {
+    "failed_attempts": 0,
+    "blocked_until": null
+  },
+  "device_3": {
+    "failed_attempts": 0,
+    "blocked_until": null
   }
 }

@@ -1,19 +1,25 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
 
-SECRET_KEY = "django-insecure-test-key-for-replit"
+DEBUG = os.getenv("DEBUG", "0") == "1"
 
-DEBUG = True
-
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.getenv(
+    "DJANGO_ALLOWED_HOSTS",
+    "localhost 127.0.0.1 web nginx"
+).split()
 
 CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://localhost:80",
+    "http://127.0.0.1:80",
     "https://*.replit.dev",
     "https://*.replit.app",
 ]
-
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -22,10 +28,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "tasks",
 ]
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -37,9 +41,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
 ROOT_URLCONF = "django_project.urls"
-
 
 TEMPLATES = [
     {
@@ -56,28 +58,27 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = "django_project.wsgi.application"
-
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB", "verificationdb"),
+        "USER": os.getenv("POSTGRES_USER", "verifuser"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "strongpassword"),
+        "HOST": os.getenv("POSTGRES_HOST", "db"),
+        "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
 
-
 AUTH_PASSWORD_VALIDATORS = []
-
 
 LANGUAGE_CODE = "ru-ru"
 TIME_ZONE = "Europe/Moscow"
 USE_I18N = True
 USE_TZ = True
 
-
-STATIC_URL = "static/"
-
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
